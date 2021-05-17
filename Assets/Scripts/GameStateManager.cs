@@ -5,7 +5,6 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Assets.Scripts;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -14,20 +13,10 @@ public class GameStateManager : MonoBehaviour
 
     public string introScene;
     public string gameScene;
-    public string endingScene;
-
-    /*public string corridorScene;
-    public string hangarScene;
-    public string memoryScene;
-    public string simonScene;
-    public string hanoiScene;
-    public string snakeScene;
-    public string quizScene;*/
 
     private string currentScene;
 
     public float lastUpdate;
-    public Assets.Scripts.Tree scenario;
 
     public static int text_indice = 0;
     public static bool flag = false;
@@ -47,11 +36,6 @@ public class GameStateManager : MonoBehaviour
             currentScene = introScene;
             SceneManager.sceneLoaded += OnSceneLoaded;
 
-            /*// scenario load
-            scenario = new Assets.Scripts.Tree();
-            TreeNode tree = scenario.node;
-            tree.Print();*/
-
             flag = true;
         }
     }
@@ -68,15 +52,6 @@ public class GameStateManager : MonoBehaviour
             {
 
                 LoadGame();
-            }
-        }
-
-        if (currentScene == endingScene)
-        {
-            if (Input.GetKey(KeyCode.Space) || Input.touchCount > 0)
-            {
-
-                LoadIntro();
             }
         }
 
@@ -132,11 +107,6 @@ public class GameStateManager : MonoBehaviour
         LoadScene(gameScene);
     }
 
-    public void LoadEnding()
-    {
-
-        LoadScene(endingScene);
-    }
 
     //To load a scene:
 
