@@ -15,7 +15,10 @@ public class Music : MonoBehaviour
 
     public void PlayMusic()
     {
-        if (_audioSource.isPlaying) return;
+        if (_audioSource.isPlaying)
+        {
+            return;
+        }
         
         _audioSource.Play();
     }
