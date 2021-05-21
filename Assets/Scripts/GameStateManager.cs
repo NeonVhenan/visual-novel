@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Assets.Scripts;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -13,10 +14,12 @@ public class GameStateManager : MonoBehaviour
 
     public string introScene;
     public string gameScene;
+    public string endingScene;
 
     private string currentScene;
 
     public float lastUpdate;
+    public Assets.Scripts.Tree scenario;
 
     public static int text_indice = 0;
     public static bool flag = false;
@@ -36,6 +39,11 @@ public class GameStateManager : MonoBehaviour
             currentScene = introScene;
             SceneManager.sceneLoaded += OnSceneLoaded;
 
+            /*// scenario load
+            scenario = new Assets.Scripts.Tree();
+            TreeNode tree = scenario.node;
+            tree.Print();*/
+
             flag = true;
         }
     }
@@ -43,30 +51,10 @@ public class GameStateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        //Espace
-        if (currentScene == introScene)
-        {
-
-            if (Input.GetKey(KeyCode.Space) || Input.touchCount > 0)
-            {
-
-                LoadGame();
-            }
-        }
-
         if (Input.GetKey("escape"))
         {
             Application.Quit();
         }
-
-        /*if (currentScene == game) {
-
-            if (Input.GetKey(KeyCode.Space)) {
-
-                LoadMemory();
-            }
-        }*/
 
         //Modification 08/03
 
@@ -83,37 +71,16 @@ public class GameStateManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Normalement OnMouseDown détecte également Touch
+    /// </summary>
     private void OnMouseDown()
     {
-
-        if(name == "start_button_v3" || name == "start_button_v4")
+        if (name == "start_button_v3" || name == "start_button_v4")
         {
-            LoadGame();
+            SceneManager.LoadScene(gameScene);
             Destroy(this.gameObject);
         }
-    }
-
-    //Classic scenes loaders
-
-    public void LoadIntro()
-    {
-
-        LoadScene(introScene);
-    }
-
-    public void LoadGame()
-    {
-
-        LoadScene(gameScene);
-    }
-
-
-    //To load a scene:
-
-    private void LoadScene(string scene)
-    {
-
-        SceneManager.LoadScene(scene);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
